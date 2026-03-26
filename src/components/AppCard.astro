@@ -1,0 +1,120 @@
+---
+interface Props {
+  name: string;
+  tag?: string;
+  description: string;
+  features: string[];
+  url: string;
+  href: string;
+}
+
+const { name, tag = 'Live app', description, features, url, href } = Astro.props;
+---
+
+<a href={href} class="app-card" target="_blank" rel="noopener">
+  <span class="app-card-arrow">↗</span>
+  <span class="app-tag">{tag}</span>
+  <div class="app-name">{name}</div>
+  <p class="app-desc">{description}</p>
+  <div class="app-features">
+    {features.map(f => <span class="app-feature-pill">{f}</span>)}
+  </div>
+  <span class="app-url">{url}</span>
+</a>
+
+<style>
+  .app-card {
+    background: var(--surface);
+    padding: 40px;
+    cursor: pointer;
+    transition: background 0.25s;
+    position: relative;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .app-card:hover { background: var(--surface2); }
+
+  .app-card-arrow {
+    position: absolute;
+    top: 36px;
+    right: 40px;
+    font-size: 18px;
+    color: var(--muted);
+    transition: color 0.2s, transform 0.2s;
+  }
+
+  .app-card:hover .app-card-arrow {
+    color: var(--accent);
+    transform: translate(2px, -2px);
+  }
+
+  .app-tag {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent2);
+    margin-bottom: 20px;
+    display: block;
+  }
+
+  .app-name {
+    font-family: var(--serif);
+    font-size: 32px;
+    font-weight: 400;
+    color: var(--text);
+    margin-bottom: 12px;
+    line-height: 1.1;
+  }
+
+  .app-desc {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.65;
+    margin-bottom: 24px;
+    flex: 1;
+  }
+
+  .app-features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 28px;
+  }
+
+  .app-feature-pill {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.05em;
+    color: var(--muted);
+    background: rgba(126, 170, 220, 0.05);
+    border: 1px solid rgba(126, 170, 220, 0.1);
+    border-radius: 4px;
+    padding: 3px 8px;
+    transition: border-color 0.2s, color 0.2s;
+  }
+
+  .app-card:hover .app-feature-pill {
+    border-color: rgba(126, 170, 220, 0.2);
+    color: #8a96aa;
+  }
+
+  .app-url {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 2px;
+    display: inline-block;
+    transition: color 0.2s, border-color 0.2s;
+    margin-top: auto;
+  }
+
+  .app-card:hover .app-url {
+    color: var(--accent);
+    border-color: rgba(126, 170, 220, 0.35);
+  }
+</style>
