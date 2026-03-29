@@ -6,49 +6,36 @@ interface Props {
   features: string[];
   url: string;
   href: string;
+  github?: string;
 }
 
-const { name, tag = 'Live app', description, features, url, href } = Astro.props;
+const { name, tag = 'Live app', description, features, url, href, github } = Astro.props;
 ---
 
-<a href={href} class="app-card" target="_blank" rel="noopener">
-  <span class="app-card-arrow">↗</span>
+<div class="app-card">
   <span class="app-tag">{tag}</span>
   <div class="app-name">{name}</div>
   <p class="app-desc">{description}</p>
   <div class="app-features">
     {features.map(f => <span class="app-feature-pill">{f}</span>)}
   </div>
-  <span class="app-url">{url}</span>
-</a>
+  <div class="app-links">
+    <a href={href} class="app-url" target="_blank" rel="noopener">{url} ↗</a>
+    {github && <a href={github} class="app-github" target="_blank" rel="noopener">GitHub ↗</a>}
+  </div>
+</div>
 
 <style>
   .app-card {
     background: var(--surface);
     padding: 40px;
-    cursor: pointer;
     transition: background 0.25s;
     position: relative;
-    text-decoration: none;
     display: flex;
     flex-direction: column;
   }
 
   .app-card:hover { background: var(--surface2); }
-
-  .app-card-arrow {
-    position: absolute;
-    top: 36px;
-    right: 40px;
-    font-size: 18px;
-    color: var(--muted);
-    transition: color 0.2s, transform 0.2s;
-  }
-
-  .app-card:hover .app-card-arrow {
-    color: var(--accent);
-    transform: translate(2px, -2px);
-  }
 
   .app-tag {
     font-family: var(--mono);
@@ -101,20 +88,40 @@ const { name, tag = 'Live app', description, features, url, href } = Astro.props
     color: #8a96aa;
   }
 
-  .app-url {
+  .app-links {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: auto;
+  }
+
+  .app-url,
+  .app-github {
     font-family: var(--mono);
     font-size: 11px;
-    color: var(--muted);
     letter-spacing: 0.04em;
+    text-decoration: none;
     border-bottom: 1px solid var(--border);
     padding-bottom: 2px;
     display: inline-block;
     transition: color 0.2s, border-color 0.2s;
-    margin-top: auto;
   }
 
-  .app-card:hover .app-url {
+  .app-url {
+    color: var(--muted);
+  }
+
+  .app-github {
+    color: var(--accent);
+    border-color: rgba(126, 170, 220, 0.3);
+  }
+
+  .app-url:hover {
     color: var(--accent);
     border-color: rgba(126, 170, 220, 0.35);
+  }
+
+  .app-github:hover {
+    border-color: var(--accent);
   }
 </style>
