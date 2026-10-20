@@ -1,5 +1,21 @@
 import { test, expect } from '@playwright/test';
 
+const lum = (rgb: number[]) => {
+  const [R, G, B] = rgb.map((v) => {
+    const c = v / 255;
+    return c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4;
+  });
+  return 0.2126 * R + 0.7152 * G + 0.0722 * B;
+};
+
+// WCAG contrast of a computed CSS colour (alpha blended) over an opaque background
+const contrast = (color: string, bg: number[]) => {
+  const [r, g, b, a = 1] = color.match(/[\d.]+/g)!.map(Number);
+  const blended = [r, g, b].map((v, i) => v * a + bg[i] * (1 - a));
+  const [hi, lo] = [lum(blended), lum(bg)].sort((x, y) => y - x);
+  return (hi + 0.05) / (lo + 0.05);
+};
+
 test.describe('home page app cards', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto('/');
@@ -58,20 +74,25 @@ test.describe('home page styling polish', () => {
     await page.goto('/');
   });
 
+  test('it renders muted card text at 10:1 contrast on the hovered card background', async ({ page }) => {
+    const color = await page.locator('.app-desc').first().evaluate((el) => getComputedStyle(el).color);
+    expect(contrast(color, [0x1a, 0x1e, 0x27])).toBeGreaterThanOrEqual(10);
+  });
+
+  test('it renders no visible text smaller than 12px', async ({ page }) => {
+    const tooSmall = await page.evaluate(() =>
+      [...document.querySelectorAll('body *')]
+        .filter((el) => [...el.childNodes].some((n) => n.nodeType === 3 && n.textContent!.trim()))
+        .filter((el) => (el as HTMLElement).offsetParent !== null)
+        .filter((el) => parseFloat(getComputedStyle(el).fontSize) < 12)
+        .map((el) => `${el.className || el.tagName}: ${getComputedStyle(el).fontSize}`),
+    );
+    expect(tooSmall).toEqual([]);
+  });
+
   test('it renders the est. 2024 label with readable contrast', async ({ page }) => {
     const color = await page.locator('.est-label').evaluate((el) => getComputedStyle(el).color);
-    const [r, g, b, a = 1] = color.match(/[\d.]+/g)!.map(Number);
-    const bg = [0x0c, 0x0e, 0x12];
-    const lum = (rgb: number[]) => {
-      const [R, G, B] = rgb.map((v) => {
-        const c = v / 255;
-        return c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4;
-      });
-      return 0.2126 * R + 0.7152 * G + 0.0722 * B;
-    };
-    const blended = [r, g, b].map((v, i) => v * a + bg[i] * (1 - a));
-    const [hi, lo] = [lum(blended), lum(bg)].sort((x, y) => y - x);
-    expect((hi + 0.05) / (lo + 0.05)).toBeGreaterThanOrEqual(4.5);
+    expect(contrast(color, [0x0c, 0x0e, 0x12])).toBeGreaterThanOrEqual(4.5);
   });
 
   test('it shows a visible focus outline on app card links when tabbed to', async ({ page }) => {
@@ -124,5 +145,33 @@ test.describe('home page styling polish', () => {
     );
     expect(rights.length).toBeGreaterThan(0);
     for (const r of rights) expect(r).toBeLessThanOrEqual(375);
+  });
+});
+
+test.describe('home page without writing section', () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto('/');
+  });
+
+  test('it has no Writing link in the header nav', async ({ page }) => {
+    await expect(page.locator('nav a', { hasText: 'Writing' })).toHaveCount(0);
+    await expect(page.locator('nav a[href="/blog"]')).toHaveCount(0);
+  });
+
+  test('it has no recent writing section', async ({ page }) => {
+    await expect(page.locator('.blog-section')).toHaveCount(0);
+    await expect(page.locator('body')).not.toContainText('Recent writing');
+  });
+
+  test('it does not mention blogging in the hero', async ({ page }) => {
+    await expect(page.locator('.hero-desc')).not.toContainText('blogging');
+    await expect(page.locator('.hero-desc')).toHaveText(
+      'I build web apps and tools that make everyday life a little easier. Developer for 29 years, based in Grimes, Iowa.',
+    );
+  });
+
+  test('it no longer serves a /blog page', async ({ page }) => {
+    const res = await page.goto('/blog');
+    expect(res!.status()).toBe(404);
   });
 });

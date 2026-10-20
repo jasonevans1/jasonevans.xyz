@@ -21,8 +21,6 @@ src/
     index.astro         # Homepage
     about.astro         # About / CV (coming soon)
     404.astro           # Custom 404
-    blog/
-      index.astro       # Blog listing (coming soon)
   styles/
     global.css          # Design tokens + global resets
 public/
@@ -59,18 +57,10 @@ npm run build
 
 Cloudflare will auto-deploy on every push to `main`.
 
-## Adding a blog post
-
-When you're ready to start writing:
-
-1. Enable Astro's content collections or just add `.astro` / `.md` files under `src/pages/blog/`.
-2. Update `src/pages/blog/index.astro` with real post listings.
-3. Update the `posts` array in `src/pages/index.astro` to surface recent posts on the homepage.
-
 ## Adding a new app
 
 Open `src/pages/index.astro` and add another `<AppCard>` inside the `.apps-grid` div. The grid will reflow automatically.
 
-## Updating the coming-soon pages
+## Updating the coming-soon page
 
-Both `/blog` and `/about` use the `ComingSoon` component. Pass new `emoji`, `headline`, `subline`, and optional `note` props to customise the message.
+The `/about` page uses the `ComingSoon` component. Pass new `emoji`, `headline`, `subline`, and optional `note` props to customise the message.

@@ -9,9 +9,8 @@
 - `tests/` — Playwright E2E tests
 
 ## Current Pages
-- `/` — Homepage with apps grid and recent posts
+- `/` — Homepage with apps grid
 - `/about` — About/CV (coming soon placeholder)
-- `/blog` — Blog listing (coming soon placeholder)
 - `/404` — Custom 404 page
 
 ## Key Components
