@@ -39,7 +39,7 @@ const { name, tag = 'Live app', description, features, url, href, github } = Ast
 
   .app-tag {
     font-family: var(--mono);
-    font-size: 10px;
+    font-size: 12px;
     letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--accent2);
@@ -73,7 +73,7 @@ const { name, tag = 'Live app', description, features, url, href, github } = Ast
 
   .app-feature-pill {
     font-family: var(--mono);
-    font-size: 10px;
+    font-size: 12px;
     letter-spacing: 0.05em;
     color: var(--muted);
     background: rgba(126, 170, 220, 0.05);
@@ -85,7 +85,7 @@ const { name, tag = 'Live app', description, features, url, href, github } = Ast
 
   .app-card:hover .app-feature-pill {
     border-color: rgba(126, 170, 220, 0.2);
-    color: #8a96aa;
+    color: var(--text);
   }
 
   .app-links {
@@ -98,7 +98,7 @@ const { name, tag = 'Live app', description, features, url, href, github } = Ast
   .app-url,
   .app-github {
     font-family: var(--mono);
-    font-size: 11px;
+    font-size: 12px;
     letter-spacing: 0.04em;
     text-decoration: none;
     border-bottom: 1px solid var(--border);
@@ -123,5 +123,11 @@ const { name, tag = 'Live app', description, features, url, href, github } = Ast
 
   .app-github:hover {
     border-color: var(--accent);
+  }
+
+  .app-url:focus-visible,
+  .app-github:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
   }
 </style>
