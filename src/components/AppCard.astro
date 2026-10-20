@@ -85,7 +85,7 @@ const { name, tag = 'Live app', description, features, url, href, github } = Ast
 
   .app-card:hover .app-feature-pill {
     border-color: rgba(126, 170, 220, 0.2);
-    color: #8a96aa;
+    color: var(--text);
   }
 
   .app-links {
@@ -123,5 +123,11 @@ const { name, tag = 'Live app', description, features, url, href, github } = Ast
 
   .app-github:hover {
     border-color: var(--accent);
+  }
+
+  .app-url:focus-visible,
+  .app-github:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
   }
 </style>

@@ -10,15 +10,13 @@ const yeschefFeatures = [
   'Shareable meal plans',
 ];
 
-const wilsonFeatures = [
-  'Asset management',
-  'Maintenance scheduling',
-  'Service records',
-  'Email reminders',
-  'Replacement tracking',
-  'Dashboard',
+const forkloreFeatures = [
+  'Quick Pick',
+  'Tonight’s events',
+  'Guided quiz',
+  'Restaurant tournament',
+  'Weather-aware picks',
 ];
-
 ---
 
 <BaseLayout title="Jason Evans — Developer & Builder">
@@ -53,12 +51,12 @@ const wilsonFeatures = [
       />
 
       <AppCard
-        name="Wilson"
-        description="Stay on top of everything in your home — appliances, HVAC, plumbing, and more. Track assets, schedule maintenance, log service history, and get ahead of costly replacements before they sneak up on you."
-        features={wilsonFeatures}
-        url="wilson.jasonevans.xyz"
-        href="https://wilson.jasonevans.xyz"
-        github="https://github.com/jasonevans1/project-wilson"
+        name="Forklore"
+        description="End the “I don’t know, what do you want?” conversation. Pick a restaurant in one tap, take a quick quiz, or run a head-to-head bracket of your favorites until every decision ends with one restaurant."
+        features={forkloreFeatures}
+        url="forklore.jasonevans.xyz"
+        href="https://forklore.jasonevans.xyz"
+        github="https://github.com/jasonevans1/project-forklore"
       />
 
       <!-- Future app slot -->
@@ -189,6 +187,12 @@ const wilsonFeatures = [
 
   .app-card-future:hover { background: var(--surface); }
 
+  /* negative offset: .apps-grid clips overflow */
+  .app-card-future:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: -2px;
+  }
+
   .future-plus {
     width: 32px;
     height: 32px;
@@ -226,7 +230,7 @@ const wilsonFeatures = [
   .est-label {
     font-family: var(--mono);
     font-size: 11px;
-    color: rgba(94, 100, 117, 0.35);
+    color: var(--muted);
     letter-spacing: 0.1em;
   }
 
@@ -269,6 +273,5 @@ const wilsonFeatures = [
     .apps-grid {
       grid-template-columns: 1fr;
     }
-
   }
 </style>
