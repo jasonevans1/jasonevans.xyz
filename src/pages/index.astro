@@ -1,26 +1,33 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import AppCard from '../components/AppCard.astro';
+import BaseLayout from "../layouts/BaseLayout.astro";
+import AppCard from "../components/AppCard.astro";
 
 const yeschefFeatures = [
-  'Recipe imports',
-  'Meal planning',
-  'Serving size adjustment',
-  'Smart grocery lists',
-  'Shareable meal plans',
+  "Recipe imports",
+  "Meal planning",
+  "Serving size adjustment",
+  "Smart grocery lists",
+  "Shareable meal plans",
 ];
 
 const forkloreFeatures = [
-  'Quick Pick',
-  'Tonight’s events',
-  'Guided quiz',
-  'Restaurant tournament',
-  'Weather-aware picks',
+  "Quick Pick",
+  "Tonight’s events",
+  "Guided quiz",
+  "Restaurant tournament",
+  "Weather-aware picks",
+];
+
+const klausFeatures = [
+  "Per-person budgets",
+  "Year-round gift ideas",
+  "Shopping & wrapping lists",
+  "Birthday reminders",
+  "Shared household",
 ];
 ---
 
 <BaseLayout title="Jason Evans — Developer & Builder">
-
   <!-- ── Hero ───────────────────────────────────────────── -->
   <section class="hero anim-fade-up delay-1">
     <div class="hero-eyebrow">jasonevans.xyz</div>
@@ -59,6 +66,15 @@ const forkloreFeatures = [
         github="https://github.com/jasonevans1/project-forklore"
       />
 
+      <AppCard
+        name="Klaus"
+        description="A gift planner for Christmas and birthdays that replaces the yearly budget spreadsheet. Track budgets per person, save gift ideas all year, and remember what you gave in years past."
+        features={klausFeatures}
+        url="klaus.jasonevans.xyz"
+        href="https://klaus.jasonevans.xyz"
+        github="https://github.com/jasonevans1/klaus"
+      />
+
       <!-- Future app slot -->
       <a href="#" class="app-card-future">
         <div class="future-plus">+</div>
@@ -70,7 +86,6 @@ const forkloreFeatures = [
       </div>
     </div>
   </section>
-
 </BaseLayout>
 
 <style>
@@ -93,7 +108,7 @@ const forkloreFeatures = [
   }
 
   .hero-eyebrow::after {
-    content: '';
+    content: "";
     display: block;
     width: 32px;
     height: 1px;
@@ -137,14 +152,18 @@ const forkloreFeatures = [
     transition: border-color 0.2s;
   }
 
-  .hero-cta:hover { border-color: var(--accent); }
+  .hero-cta:hover {
+    border-color: var(--accent);
+  }
 
   .hero-cta-arrow {
     display: inline-block;
     transition: transform 0.2s;
   }
 
-  .hero-cta:hover .hero-cta-arrow { transform: translateX(4px); }
+  .hero-cta:hover .hero-cta-arrow {
+    transform: translateX(4px);
+  }
 
   /* ── Apps ──────────────────────────────────────────────── */
   .apps-section {
@@ -173,7 +192,9 @@ const forkloreFeatures = [
     transition: background 0.2s;
   }
 
-  .app-card-future:hover { background: var(--surface); }
+  .app-card-future:hover {
+    background: var(--surface);
+  }
 
   /* negative offset: .apps-grid clips overflow */
   .app-card-future:focus-visible {
@@ -192,7 +213,9 @@ const forkloreFeatures = [
     justify-content: center;
     color: var(--muted);
     font-size: 18px;
-    transition: border-color 0.2s, color 0.2s;
+    transition:
+      border-color 0.2s,
+      color 0.2s;
   }
 
   .app-card-future:hover .future-plus {
@@ -208,6 +231,7 @@ const forkloreFeatures = [
   }
 
   .app-cell-est {
+    grid-column: 1 / -1;
     background: var(--bg);
     display: flex;
     align-items: center;
