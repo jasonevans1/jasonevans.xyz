@@ -72,10 +72,17 @@ const { emoji, headline, subline, note } = Astro.props;
     transition: color 0.2s;
   }
 
-  .cs-back:hover { color: var(--accent); }
+  .cs-back:hover {
+    color: var(--accent);
+  }
 
   @keyframes float {
-    0%, 100% { transform: translateY(0);    }
-    50%       { transform: translateY(-8px); }
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-8px);
+    }
   }
 </style>

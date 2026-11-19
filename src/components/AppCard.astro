@@ -9,7 +9,15 @@ interface Props {
   github?: string;
 }
 
-const { name, tag = 'Live app', description, features, url, href, github } = Astro.props;
+const {
+  name,
+  tag = "Live app",
+  description,
+  features,
+  url,
+  href,
+  github,
+} = Astro.props;
 ---
 
 <div class="app-card">
@@ -17,11 +25,17 @@ const { name, tag = 'Live app', description, features, url, href, github } = Ast
   <div class="app-name">{name}</div>
   <p class="app-desc">{description}</p>
   <div class="app-features">
-    {features.map(f => <span class="app-feature-pill">{f}</span>)}
+    {features.map((f) => <span class="app-feature-pill">{f}</span>)}
   </div>
   <div class="app-links">
     <a href={href} class="app-url" target="_blank" rel="noopener">{url} ↗</a>
-    {github && <a href={github} class="app-github" target="_blank" rel="noopener">GitHub ↗</a>}
+    {
+      github && (
+        <a href={github} class="app-github" target="_blank" rel="noopener">
+          GitHub ↗
+        </a>
+      )
+    }
   </div>
 </div>
 
@@ -35,7 +49,9 @@ const { name, tag = 'Live app', description, features, url, href, github } = Ast
     flex-direction: column;
   }
 
-  .app-card:hover { background: var(--surface2); }
+  .app-card:hover {
+    background: var(--surface2);
+  }
 
   .app-tag {
     font-family: var(--mono);
@@ -80,7 +96,9 @@ const { name, tag = 'Live app', description, features, url, href, github } = Ast
     border: 1px solid rgba(126, 170, 220, 0.1);
     border-radius: 4px;
     padding: 3px 8px;
-    transition: border-color 0.2s, color 0.2s;
+    transition:
+      border-color 0.2s,
+      color 0.2s;
   }
 
   .app-card:hover .app-feature-pill {
@@ -104,7 +122,9 @@ const { name, tag = 'Live app', description, features, url, href, github } = Ast
     border-bottom: 1px solid var(--border);
     padding-bottom: 2px;
     display: inline-block;
-    transition: color 0.2s, border-color 0.2s;
+    transition:
+      color 0.2s,
+      border-color 0.2s;
   }
 
   .app-url {
